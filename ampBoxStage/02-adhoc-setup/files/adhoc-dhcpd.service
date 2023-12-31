@@ -1,0 +1,14 @@
+[Unit]
+Description=DHCP Server for Ad-Hoc Network
+Wants=adhoc-network.service
+After=adhoc-network.service
+Requires=network.target
+
+[Service]
+Type=forking
+ExecStart=/usr/sbin/dhcpd -4 -cf /etc/dhcp/adhoc-dhcpd.conf wlan0
+ExecReload=/bin/kill -HUP $MAINPID
+
+[Install]
+WantedBy=multi-user.target
+
